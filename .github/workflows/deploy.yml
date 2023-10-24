@@ -26,4 +26,4 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          rsync -ravz --delete --exclude=".git" --exclude="node_modules" --exclude="vendor" ./ $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
+          rsync -ravz --delete --exclude-from=.gitignore ./ $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
