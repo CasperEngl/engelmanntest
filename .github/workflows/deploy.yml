@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /usr/bin/rsync
-          key: ${{ runner.os }}-rsync-${{ hashFiles('**/apt-get.txt') }}
+          key: ${{ runner.os }}-rsync
 
       - name: Install rsync
         if: steps.cache-rsync.outputs.cache-hit != 'true'
