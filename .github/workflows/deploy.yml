@@ -23,8 +23,15 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Cache rsync
+        id: cache-rsync
+        uses: actions/cache@v3
+        with:
+          path: /usr/bin/rsync
+          key: ${{ runner.os }}-rsync-${{ hashFiles('**/apt-get.txt') }}
+
       - name: Install rsync
-        run: sudo apt-get update -qy && sudo apt-get install -y rsync
+        run: if [ -z "$(ls -A /usr/bin/rsync)" ]; then sudo apt-get install rsync; fi
 
       - name: Deploy to Simply.com
         env:
