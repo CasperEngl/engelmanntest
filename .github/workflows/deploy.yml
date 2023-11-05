@@ -31,7 +31,8 @@ jobs:
           key: ${{ runner.os }}-rsync-${{ hashFiles('**/apt-get.txt') }}
 
       - name: Install rsync
-        run: if [ -z "$(ls -A /usr/bin/rsync)" ]; then sudo apt-get install rsync; fi
+        if: steps.cache-rsync.outputs.cache-hit != 'true'
+        run: sudo apt-get install -y rsync
 
       - name: Deploy to Simply.com
         env:
